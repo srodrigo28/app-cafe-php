@@ -24,6 +24,8 @@ class produto {
     public function getNome(): string { return $this->nome; }
     public function getDescricao(): string { return $this->descricao; }
     public function getImg(): string { return $this->img; }
+    public function getImagemDiretorio(): string { return "img/".$this->img; }
     public function getPreco(): float { return $this->preco; }
+    public function getPrecoFormatado(): string { return "R$ " . number_format($this->preco, 2); }
 
 }

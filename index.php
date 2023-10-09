@@ -2,40 +2,25 @@
 
 require_once "src/conn.php";
 require_once "src/Modelo/Produto.php";
+require "src/Repositorio/ProdutoRepositorio.php";
 
-$sql1 = "SELECT * FROM produtos WHERE tipo = 'Café' ORDER BY preco";
+$produtosRepositorio = new ProdutoRepositorio($pdo);
+$dadosCafe = $produtosRepositorio->opcoesCafe();
+
 $sql2 = "SELECT * FROM produtos WHERE tipo = 'Almoço' ORDER BY preco";
-
-$statement = $pdo->query($sql1);
-$produtosCafe = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 $statement = $pdo->query($sql2);
 $produtosAlmoco = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-$dadosCafe = array_map(function($cafe){
-    return new Produto($cafe['id'],
-        $cafe['tipo'],
-        $cafe['nome'],
-        $cafe['descricao'],
-        $cafe['imagem'],
-        $cafe['preco']
-    );
-}, $produtosCafe);
-
-$dadosProduto = array_map(function($cafe){
-    return new Produto($cafe['id'],
-        $cafe['tipo'],
-        $cafe['nome'],
-        $cafe['descricao'],
-        $cafe['imagem'],
-        $cafe['preco']
+$dadosAlmoco = array_map(function($almoco){
+    return new Produto($almoco['id'],
+        $almoco['tipo'],
+        $almoco['nome'],
+        $almoco['descricao'],
+        $almoco['imagem'],
+        $almoco['preco']
     );
 }, $produtosAlmoco);
-
-// var_dump($dadosCafe);
-// exit();
-
-
 
 ?>
 <!doctype html>
@@ -70,10 +55,10 @@ $dadosProduto = array_map(function($cafe){
             <div class="container-cafe-manha-produtos">
                 <?php foreach($dadosCafe as $cafe): ?>
                     <div class="container-produto">
-                        <div class="container-foto"> <img src=" <?= "img/".$cafe->getImg() ?>"> </div>
+                        <div class="container-foto"> <img src=" <?= $cafe->getImagemDiretorio() ?>"> </div>
                         <p>   <?= $cafe->getNome() ?>     </p>
-                        <p>   <?= $cafe->getDescricao() ?></p>
-                        <p>R$ <?= $cafe->getPreco() ?>    </p>
+                        <p>   <?= $cafe->getDescricao() ?> </p>
+                        <p>   <?= $cafe->getPrecoFormatado() ?> </p>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -87,12 +72,12 @@ $dadosProduto = array_map(function($cafe){
             </div>
             
             <div class="container-almoco-produtos">
-                <?php foreach($almoco as $item): ?>
+                <?php foreach($dadosAlmoco as $item): ?>
                     <div class="container-produto">
-                        <div class="container-foto"> <img src=" <?= "img/".$item->getImg() ?>"> </div>
+                        <div class="container-foto"> <img src=" <?= $item->getImagemDiretorio() ?>"> </div>
                         <p> <?= $item->getNome() ?>      </p>
                         <p> <?= $item->getDescricao() ?> </p>
-                        <p> R$ <?= $item->getPreco() ?> </p>
+                        <p> <?= $item->getPrecoFormatado() ?> </p>
                     </div>
                 <?php endforeach ?>
             </div>
