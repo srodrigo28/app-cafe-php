@@ -1,92 +1,41 @@
 <?php 
 
-require "./conn.php";
-// $sql1 = "SELECT * FROM produtos WHERE tipo = 'Café' ";
+require_once "src/conn.php";
+require_once "src/Modelo/Produto.php";
+
 $sql1 = "SELECT * FROM produtos WHERE tipo = 'Café' ORDER BY preco";
+$sql2 = "SELECT * FROM produtos WHERE tipo = 'Almoço' ORDER BY preco";
 
 $statement = $pdo->query($sql1);
 $produtosCafe = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-$sql2 = "SELECT * FROM produtos WHERE tipo = 'Almoço' ";
-
 $statement = $pdo->query($sql2);
-$almoco = $statement->fetchAll(PDO::FETCH_ASSOC);
+$produtosAlmoco = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-// var_dump($produtosCafe);
+$dadosCafe = array_map(function($cafe){
+    return new Produto($cafe['id'],
+        $cafe['tipo'],
+        $cafe['nome'],
+        $cafe['descricao'],
+        $cafe['imagem'],
+        $cafe['preco']
+    );
+}, $produtosCafe);
+
+$dadosProduto = array_map(function($cafe){
+    return new Produto($cafe['id'],
+        $cafe['tipo'],
+        $cafe['nome'],
+        $cafe['descricao'],
+        $cafe['imagem'],
+        $cafe['preco']
+    );
+}, $produtosAlmoco);
+
+// var_dump($dadosCafe);
 // exit();
 
-// $produtosCafe = [
-//     [
-//         'nome' => "Café com Leite",
-//         'descricao' => "A harmonia do café e do leite, uma experiência reconfortante",
-//         'preco' => "2.00",
-//         'imagem' => "img/cafe-com-leite.jpg",
-//     ],
-//     [
-//         'nome' => "Cappuccino",
-//         'descricao' => "Café suave, leite cremoso e uma pitada de sabor adocicado",
-//         'preco' => "7.00",
-//         'imagem' => "img/cappuccino.jpg"
-//     ],
-//     [
-//         'nome' => "Café Gelado",
-//         'descricao' => "Café gelado refrescante, adoçado e com notas sutis de baunilha ou caramelo.",
-//         'preco' => "3.00",
-//         'imagem' => "img/cafe-gelado.jpg"
-//     ],
-//     [
-//         'nome' => "Café Gelado",
-//         'descricao' => "Café gelado refrescante, adoçado e com notas sutis de baunilha ou caramelo.",
-//         'preco' => "3.00",
-//         'imagem' => "img/cafe-gelado.jpg"
-//     ],
-//     [
-//         'nome' => "Café Gelado",
-//         'descricao' => "Café gelado refrescante, adoçado e com notas sutis de baunilha ou caramelo.",
-//         'preco' => "3.00",
-//         'imagem' => "img/cafe-gelado.jpg"
-//     ]
-// ];
 
-// $almoco = [
-//     [
-//         'nome' => "Bife 1",
-//         'descricao' => "Bife, arroz com feijão e uma deliciosa batata frita",
-//         'preco' => "17.00",
-//         'imagem' => "img/bife.jpg",
-//     ],
-//     [
-//         'nome' => "Filé de Peixe",
-//         'descricao' => "Filé de peixe salmão assado, arroz, feijão verde e tomate.",
-//         'preco' => "17.00",
-//         'imagem' => "img/prato-peixe.jpg",
-//     ],
-//     [
-//         'nome' => "Filé de Frango",
-//         'descricao' => "Prato italiano autêntico da massa do fettuccine com peito de frango grelhado",
-//         'preco' => "17.00",
-//         'imagem' => "img/prato-frango.jpg",
-//     ],
-//     [
-//         'nome' => "Bife 1",
-//         'descricao' => "Bife, arroz com feijão e uma deliciosa batata frita",
-//         'preco' => "17.00",
-//         'imagem' => "img/bife.jpg",
-//     ],
-//     [
-//         'nome' => "Filé de Peixe",
-//         'descricao' => "Filé de peixe salmão assado, arroz, feijão verde e tomate.",
-//         'preco' => "17.00",
-//         'imagem' => "img/prato-peixe.jpg",
-//     ],
-//     [
-//         'nome' => "Filé de Frango",
-//         'descricao' => "Prato italiano autêntico da massa do fettuccine com peito de frango grelhado",
-//         'preco' => "17.00",
-//         'imagem' => "img/prato-frango.jpg",
-//     ],
-// ];
 
 ?>
 <!doctype html>
@@ -119,12 +68,12 @@ $almoco = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
             </div>
             <div class="container-cafe-manha-produtos">
-                <?php foreach($produtosCafe as $cafe): ?>
+                <?php foreach($dadosCafe as $cafe): ?>
                     <div class="container-produto">
-                        <div class="container-foto"> <img src=" <?= "img/".$cafe['imagem'] ?>"> </div>
-                        <p>   <?= $cafe['nome'] ?>     </p>
-                        <p>   <?= $cafe['descricao'] ?></p>
-                        <p>R$ <?= $cafe['preco'] ?>    </p>
+                        <div class="container-foto"> <img src=" <?= "img/".$cafe->getImg() ?>"> </div>
+                        <p>   <?= $cafe->getNome() ?>     </p>
+                        <p>   <?= $cafe->getDescricao() ?></p>
+                        <p>R$ <?= $cafe->getPreco() ?>    </p>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -140,10 +89,10 @@ $almoco = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class="container-almoco-produtos">
                 <?php foreach($almoco as $item): ?>
                     <div class="container-produto">
-                        <div class="container-foto"> <img src=" <?= "img/".$item['imagem'] ?>"> </div>
-                        <p> <?= $item['nome'] ?>      </p>
-                        <p> <?= $item['descricao'] ?> </p>
-                        <p> R$ <?= $item['preco'] ?> </p>
+                        <div class="container-foto"> <img src=" <?= "img/".$item->getImg() ?>"> </div>
+                        <p> <?= $item->getNome() ?>      </p>
+                        <p> <?= $item->getDescricao() ?> </p>
+                        <p> R$ <?= $item->getPreco() ?> </p>
                     </div>
                 <?php endforeach ?>
             </div>
