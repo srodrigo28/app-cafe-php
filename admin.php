@@ -13,6 +13,14 @@ $produtos = $produtosRepositorio->buscarTodos();
 require_once "template/header.php";
 
 ?>
+
+<style>
+  table tbody tr:hover{
+    cursor: pointer;
+    opacity: .2;
+
+}
+</style>
 <main>
   <section class="container-admin-banner">
     <img src="img/logo-serenatto-horizontal.png" class="logo-admin" alt="logo-serenatto">
@@ -51,8 +59,7 @@ require_once "template/header.php";
       </tbody>
     </table>
   <a class="botao-cadastrar" href="cadastrar-produto.php">Cadastrar produto</a>
-  <form action="./src/editar-produto.php" method="post">
-    <input type="hidden" name="id" value=" <?= $produto->getId() ?> " >
+  <form action="src/gerador-pdf.php" method="post">
     <input type="submit" class="botao-cadastrar" value="Baixar Relatório"/>
   </form>
   </section>
