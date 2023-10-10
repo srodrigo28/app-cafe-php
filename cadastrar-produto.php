@@ -3,20 +3,20 @@
     require_once "src/Modelo/Produto.php";
     require_once "src/Repositorio/ProdutoRepositorio.php";
 
-    if(isset($_POST['cadastro'])){
-        $produto = new Produto(null, 
+    if (isset($_POST['cadastro'])){
+        $produto = new Produto(null,
             $_POST['tipo'], 
             $_POST['nome'], 
             $_POST['descricao'], 
-            $_POST['preco'],
-            //$_POST['img']
+            $_POST['preco']
+            // $_POST['imagem']
         );
-    }
+    
     $produtoRepositorio = new ProdutoRepositorio($pdo);
     $produtoRepositorio->salvar($produto);
-    
+
     header("Location: http://localhost/www/app-cafe-php/admin.php");
-    
+    }
     
 ?>
 <!doctype html>
