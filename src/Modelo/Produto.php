@@ -28,4 +28,6 @@ class produto {
     public function getPreco(): float { return $this->preco; }
     public function getPrecoFormatado(): string { return "R$ " . number_format($this->preco, 2); }
 
+    public function setImagem(string $imagem): void { $this->imagem = $imagem; }
+
 }
