@@ -1,14 +1,14 @@
 <?php
 
 require_once "src/conn.php";
-require_once "src/Modelo/Produto.php";
-require_once "src/Repositorio/ProdutoRepositorio.php";
+require_once "src/Modelo/Condominio.php";
+require_once "src/Repositorio/CondominioRepositorio.php";
 
-$produtosRepositorio = new ProdutoRepositorio($pdo);
-$produtos = $produtosRepositorio->buscarTodos();
+$condominioRepositorio = new CondominioRepositorio($pdo);
+$condominio = $condominioRepositorio->buscarTodos();
 
-// var_dump($produtos);
-// exit();
+var_dump($condominio);
+exit();
 
 require_once "template/header.php";
 
@@ -23,19 +23,18 @@ require_once "template/header.php";
 </style>
 <main>
   <section class="container-admin-banner">
-    <img src="img/logo-serenatto-horizontal.png" class="logo-admin" alt="logo-serenatto">
-    <h1>Admistração Serenatto</h1>
-    <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
+    <h1>Admistração Macatto</h1>
   </section>
-  <h2>Lista de Produtos</h2>
+  <h2>Lista de Condominio</h2>
 
   <section class="container-table">
     <table>
       <thead>
         <tr>
-          <th>Produto</th>
-          <th>Tipo</th>
-          <th>Descricão</th>
+          <th>Condomio</th>
+          <th>CNPJ</th>
+          <th>Setor</th>
+          <th>Contato</th>
           <th>Valor</th>
           <th colspan="2">Ação</th>
         </tr>

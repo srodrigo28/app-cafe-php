@@ -12,11 +12,13 @@ $dadosAlmoco = $produtosRepositorio->opcoesAlmoco();
 require_once "template/header.php";
 ?>
     <main>
+
         <section class="container-banner">
             <div class="container-texto-banner">
                 <img src="img/logo-serenatto.png" class="logo" alt="logo-serenatto">
             </div>
         </section>
+        
         <h2>Cardápio Digital</h2>
 
         <section class="container-cafe-manha">
@@ -55,7 +57,6 @@ require_once "template/header.php";
             </div>
 
         </section>
-        
     </main>
 </body>
 </html>
