@@ -1,3 +1,24 @@
+<?php
+    require_once "src/conn.php";
+    require_once "src/Modelo/Produto.php";
+    require_once "src/Repositorio/ProdutoRepositorio.php";
+
+    if(isset($_POST['cadastro'])){
+        $produto = new Produto(null, 
+            $_POST['tipo'], 
+            $_POST['nome'], 
+            $_POST['descricao'], 
+            $_POST['preco'],
+            //$_POST['img']
+        );
+    }
+    $produtoRepositorio = new ProdutoRepositorio($pdo);
+    $produtoRepositorio->salvar($produto);
+    
+    header("Location: http://localhost/www/app-cafe-php/admin.php");
+    
+    
+?>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -24,7 +45,7 @@
         <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
     </section>
     <section class="container-form">
-        <form action="#">
+        <form method="post" >
 
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required>
