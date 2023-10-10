@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$dbname = "banco_php";
+$dbname = "banco_macatto2";
 $port = 3306;
 
 try{

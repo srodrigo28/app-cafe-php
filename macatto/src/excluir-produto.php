@@ -1,13 +1,11 @@
 <?php
 
 require_once "conn.php";
-require_once "Modelo/Produto.php";
-require_once "Repositorio/ProdutoRepositorio.php";
+require_once "Modelo/Condominio.php";
+require_once "Repositorio/CondominioRepositorio.php";
 
-$produtoRepositorio = new ProdutoRepositorio($pdo);
-$produtoRepositorio->deletar($_POST['id']);
+$dadosCondominio = new CondominioRepositorio($pdo);
+$dadosCondominio->deletar($_POST['id']);
 
-header("Location: http://localhost/www/app-cafe-php/admin.php" );
-
-// var_dump($_GET['id']);
+header("Location: http://localhost/www/app-cafe-php/macatto/admin.php" );
 

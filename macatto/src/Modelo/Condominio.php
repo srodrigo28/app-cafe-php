@@ -2,11 +2,13 @@
 
 class condominio {
     private ?int $id;
+
     private string $nome;
     private string $cnpj;
     private string $escricaoEstadual;
     private string $cidade;
     private string $setor;
+
     private string $endereco;
     private string $contato;
     private string $email;
@@ -25,6 +27,7 @@ class condominio {
         $this->escricaoEstadual = $escricaoEstadual;
         $this->cidade = $cidade;
         $this->setor = $setor;
+        
         $this->endereco = $endereco;
         $this->contato = $contato;
         $this->email = $email;
@@ -35,7 +38,7 @@ class condominio {
     public function getId(): ?int { return $this-> id; }
     public function getNome(): string { return $this->nome; }
     public function getCnpj(): string { return $this->cnpj; }
-    public function getEscricaoEstaudual(): string { return $this->escricaoEstadual; }
+    public function getEscricaoEstadual(): string { return $this->escricaoEstadual; }
     public function getCidade(): string { return $this->cidade; }
 
     public function getSetor(): string { return $this->setor; }

@@ -5,13 +5,10 @@ require_once "src/Modelo/Condominio.php";
 require_once "src/Repositorio/CondominioRepositorio.php";
 
 $condominioRepositorio = new CondominioRepositorio($pdo);
+
+$dadosCondominio = $condominioRepositorio->recordCondominio();
 $condominio = $condominioRepositorio->buscarTodos();
-
-var_dump($condominio);
-exit();
-
 require_once "template/header.php";
-
 ?>
 
 <style>
@@ -35,17 +32,17 @@ require_once "template/header.php";
           <th>CNPJ</th>
           <th>Setor</th>
           <th>Contato</th>
-          <th>Valor</th>
+          <th>Valor Contrato</th>
           <th colspan="2">Ação</th>
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($produtos as $produto): ?>
+      <?php foreach ($dadosCondominio as $produto): ?>
         <tr>
           <td> <?= $produto->getNome(); ?> </td>
-          <td> <?= $produto->getTipo(); ?> </td>
-          <td> <?= $produto->getDescricao(); ?> </td>
-          <td> <?= $produto->getPrecoFormatado(); ?> </td>
+          <td> <?= $produto->getCNPJ(); ?> </td>
+          <td> <?= $produto->getContato(); ?> </td>
+          <td> <?= $produto->getValorContrato(); ?> </td>
           <td><a class="botao-editar" href="editar-produto.php?id=<?= $produto->getId() ?>">Editar</a></td>
           <td>
             <form action="./src/excluir-produto.php" method="post">
@@ -57,7 +54,7 @@ require_once "template/header.php";
         <?php endforeach ?>
       </tbody>
     </table>
-  <a class="botao-cadastrar" href="cadastrar-produto.php">Cadastrar produto</a>
+  <a class="botao-cadastrar" href="cadastrar.php">Cadastrar produto</a>
   <form action="src/gerador-pdf.php" method="post">
     <input type="submit" class="botao-cadastrar" value="Baixar Relatório"/>
   </form>

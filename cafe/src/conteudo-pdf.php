@@ -17,9 +17,24 @@ $row_valor = $result_valor->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <style>
+  .texto-total{
+    font-weight: bold;
+    text-align: right;
+  }
+  .valor_texto{
+    width: 65px;
+  }
+  .valor_title{
+    text-align: center;
+  }
+    h1{
+        width: 90%;
+        margin: auto 40px;
+        margin-bottom: 10px;
+    }
     table{
         width: 90%;
-        margin: auto 0;
+        margin: auto 40px;
     }
     table, th, td{
         border: 1px solid #000;
@@ -28,7 +43,7 @@ $row_valor = $result_valor->fetch(PDO::FETCH_ASSOC);
     table th{
         padding: 11px 0 11px;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 14px;
         text-align: left;
         padding: 8px;
     }
@@ -38,12 +53,8 @@ $row_valor = $result_valor->fetch(PDO::FETCH_ASSOC);
     }
 
     table td{
-        font-size: 18px;
+      font-size: 14px;
         padding: 8px;
-    }
-    .container-admin-banner h1{
-        margin-top: 40px;
-        font-size: 30px;
     }
 </style>
 <h1>Relatório de Produtos</h1>
@@ -53,7 +64,7 @@ $row_valor = $result_valor->fetch(PDO::FETCH_ASSOC);
     <th>Produto</th>
     <th>Tipo</th>
     <th>Descricão</th>
-    <th>Valor</th>
+    <th class="valor_title">Valor</th>
   </tr>
 </thead>
 <tbody>
@@ -62,12 +73,12 @@ $row_valor = $result_valor->fetch(PDO::FETCH_ASSOC);
     <td> <?= $produto->getNome(); ?> </td>
     <td> <?= $produto->getTipo(); ?> </td>
     <td> <?= $produto->getDescricao(); ?> </td>
-    <td> <?= $produto->getPrecoFormatado(); ?> </td>
+    <td class="valor_texto"> <?= $produto->getPrecoFormatado(); ?> </td>
   </tr>
   <?php endforeach ?>
   <tr>
-    <td  colspan="3"> Total:  </td>
-    <td  colspan="1"> <strong> R$ <?= $row_valor['total']; ?> </strong> </td>
+    <td  colspan="2"> <strong>Total: </strong> </td>
+    <td  colspan="2" class="texto-total" > R$ <?= $row_valor['total']; ?> </td>
   </tr>
 </tbody>
 </table>
