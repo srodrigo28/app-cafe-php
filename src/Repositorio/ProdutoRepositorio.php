@@ -84,7 +84,7 @@ class ProdutoRepositorio
 
     public function buscar(int $id)
     {
-        $sql = "SELECT * FROM produtos WHERE id = ?";
+        $sql = " SELECT * FROM produtos WHERE id = ? ";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $id);
         $statement->execute();
@@ -96,7 +96,7 @@ class ProdutoRepositorio
 
     public function atualizar(Produto $produto)
     {
-        $sql = "UPDATE produtos SET tipo = ?, nome = ?, descricao = ?, preco = ?, imagem = ? WHERE id = ?";
+        $sql = " UPDATE produtos SET tipo = ?, nome = ?, descricao = ?, preco = ?, imagem = ? WHERE id = ? ";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $produto->getTipo());
         $statement->bindValue(2, $produto->getNome());

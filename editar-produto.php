@@ -8,7 +8,7 @@
   if (isset($_POST['editar'])) {
     $produto = new Produto($_POST['id'], $_POST['tipo'], $_POST['nome'], $_POST['descricao'], $_POST['preco']);
     $produtoRepositorio->atualizar($produto);
-    // header("Location: admin.php");
+    header("Location: admin.php");
 } else {
     $produto = $produtoRepositorio->buscar($_GET['id']);
 }
@@ -50,11 +50,11 @@
       <div class="container-radio">
         <div>
             <label for="cafe">Café</label>
-            <input type="radio" id="cafe" name="tipo" value=" <?= $produto->getTipo() == "Café" ? "checked" : "" ?>" >
+            <input type="radio" id="cafe" name="tipo" value="Café" <?= $produto->getTipo() == "Café" ? "checked" : "" ?>>
         </div>
         <div>
             <label for="almoco">Almoço</label>
-            <input type="radio" id="almoco" name="tipo" value="Café" <?= $produto->getTipo() == "Almoço" ? "checked" : "" ?> >
+            <input type="radio" id="almoco" name="tipo" value="Almoço"  <?= $produto->getTipo() == "Almoço" ? "checked" : "" ?> >
         </div>
     </div>
 
@@ -62,11 +62,11 @@
       <input type="text" id="descricao" name="descricao" placeholder="Digite uma descrição" value="Almoço" <?= $produto->getDescricao() ?> required>
 
       <label for="preco">Preço</label>
-      <input type="text" id="preco" name="preco" placeholder="Digite uma descrição" value="<?= $produto->getPrecoFormatado() ?>" required>
+      <input type="text" id="preco" name="preco" placeholder="Digite uma descrição" value="<?= number_format($produto->getPreco(), 2) ?>" required>
 
       <label for="imagem">Envie uma imagem do produto</label>
       <input type="file" name="imagem" accept="image/*" id="imagem" placeholder="Envie uma imagem" value="<?= $produto->getImagem() ?>">
-
+      <input type="hidden" name="id" value="<?= $produto->getId()?>">
       <input type="submit" name="editar" class="botao-cadastrar"  value="Editar produto"/>
     </form>
 

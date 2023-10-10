@@ -9,7 +9,7 @@ class produto {
     private string $imagem;
 
     /*** @Param */
-    public function __construct( ?int $id, string $tipo, string $nome, string $descricao, float $preco, string $imagem = "logo-serenatto.png" )
+    public function __construct( int $id, string $tipo, string $nome, string $descricao, float $preco, string $imagem = "logo-serenatto.png" )
     {
         $this->id = $id;
         $this->tipo = $tipo;
