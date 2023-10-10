@@ -2,7 +2,6 @@
 
 class condominio {
     private ?int $id;
-
     private string $nome;
     private string $cnpj;
     private string $escricaoEstadual;
@@ -16,7 +15,7 @@ class condominio {
     private string $imagem;
 
     /*** @Param */
-    public function __construct( 
+    public function __construct(
         ?int $id, string $nome, string $cnpj, string $escricaoEstadual,
         string $cidade, string $setor, string $endereco, string $contato, 
         string $email, float $valorContrato, string $imagem = "padrao-condominio.jpeg" )

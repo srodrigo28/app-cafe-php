@@ -7,6 +7,8 @@ require_once "src/Repositorio/ProdutoRepositorio.php";
 $produtosRepositorio = new ProdutoRepositorio($pdo);
 $produtos = $produtosRepositorio->buscarTodos();
 
+var_dump($produtos['0']);
+// var_dump($produtos['0']);
 // var_dump($produtos);
 // exit();
 

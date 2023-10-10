@@ -5,9 +5,14 @@ require_once "src/Modelo/Condominio.php";
 require_once "src/Repositorio/CondominioRepositorio.php";
 
 $condominioRepositorio = new CondominioRepositorio($pdo);
-
 $dadosCondominio = $condominioRepositorio->recordCondominio();
-$condominio = $condominioRepositorio->buscarTodos();
+
+// $condominio = $condominioRepositorio->buscarTodos();
+
+
+// var_dump($dadosCondominio['0']);
+// exit();
+
 require_once "template/header.php";
 ?>
 
@@ -43,7 +48,7 @@ require_once "template/header.php";
           <td> <?= $produto->getCNPJ(); ?> </td>
           <td> <?= $produto->getContato(); ?> </td>
           <td> <?= $produto->getValorContrato(); ?> </td>
-          <td><a class="botao-editar" href="editar-produto.php?id=<?= $produto->getId() ?>">Editar</a></td>
+          <td><a class="botao-editar" href="editar.php?id=<?= $produto->getId() ?>">Editar</a></td>
           <td>
             <form action="./src/excluir-produto.php" method="post">
               <input type="hidden" name="id" value=" <?= $produto->getId() ?> " >

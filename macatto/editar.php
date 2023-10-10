@@ -1,25 +1,30 @@
 <?php
   require_once "src/conn.php";
-  require_once "src/Modelo/Produto.php";
-  require_once "src/Repositorio/ProdutoRepositorio.php";
+  require_once "src/Modelo/Condominio.php";
+  require_once "src/Repositorio/CondominioRepositorio.php";
 
-  $produtoRepositorio = new ProdutoRepositorio($pdo);
+  $condominioRepositorio = new CondominioRepositorio($pdo);
 
   if (isset($_POST['editar'])) {
-    $produto = new Produto($_POST['id'], $_POST['tipo'], $_POST['nome'], $_POST['descricao'], $_POST['preco']);
+      $produto = new Condominio( $_POST['nome'], $_POST['cnpj'], $_POST['escricao_estadual'], $_POST['cidade'], $_POST['setor'], $_POST['endereco'],  $_POST['contato'], $_POST['email'], $_POST['valor_contrato'] );
 
-    
     if (isset($_FILES['imagem'])) {     
       $produto->setImagem(uniqid() . $_FILES['imagem']['name']);
       move_uploaded_file( $_FILES['imagem']['tmp_name'], $produto->getImagemDiretorio() );
     }
 
-    $produtoRepositorio->atualizar($produto);
-    header("Location: admin.php");
+  $condominioRepositorio->atualizar($produto);
+  header("Location: admin.php");
+  
 } else {
-    $produto = $produtoRepositorio->buscar($_GET['id']);
+    $produto = $condominioRepositorio->buscar($_GET['id']);
 }
 
+// var_dump($produto['0']);
+// exit();
+
+// var_dump($produto->getNome());
+// exit();
 
 ?>
 <!doctype html>
@@ -38,43 +43,45 @@
   <link rel="icon" href="img/icone-serenatto.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <title>Serenatto - Editar Produto</title>
+  <title>Editar Condominio</title>
 </head>
 <body>
 <main>
   <section class="container-admin-banner">
-    <img src="img/logo-serenatto-horizontal.png" class="logo-admin" alt="logo-serenatto">
-    <h1>Editar Produto</h1>
-    <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
+    
+    <h1>Editar Condominio</h1>
+    
   </section>
   <section class="container-form">
   
     <form method="post" enctype="multipart/form-data">
 
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" value="<?= $produto->getNome() ?>" required>
+      <input type="text" id="nome" name="nome" value="" required>
 
-      <div class="container-radio">
-        <div>
-            <label for="cafe">Café</label>
-            <input type="radio" id="cafe" name="tipo" value="Café" <?= $produto->getTipo() == "Café" ? "checked" : "" ?>>
-        </div>
-        <div>
-            <label for="almoco">Almoço</label>
-            <input type="radio" id="almoco" name="tipo" value="Almoço"  <?= $produto->getTipo() == "Almoço" ? "checked" : "" ?> >
-        </div>
-    </div>
+      <input type="text" id="cnpj" name="cnpj" placeholder="Digite o cnpj" required>
 
-      <label for="descricao">Descrição</label>
-      <input type="text" id="descricao" name="descricao" placeholder="Digite uma descrição" value="Almoço" <?= $produto->getDescricao() ?> required>
+      <input type="text" id="escricao_estadual" name="escricao_estadual" placeholder="Escrição Estadual"  required>
 
-      <label for="preco">Preço</label>
-      <input type="text" id="preco" name="preco" placeholder="Digite uma descrição" value="<?= number_format($produto->getPreco(), 2) ?>" required>
+      <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+
+      <input type="text" id="setor" name="setor" placeholder="Setor" required>
+
+      <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
+
+      <input type="text" id="contato" name="contato" placeholder="Contato" required>
+
+      <input type="text" id="email" name="email" placeholder="E-mail" required>
+
+      <input type="text" id="valor_contrato" name="valor_contrato" placeholder="Valor do Contrato" required>
+      
+      <input type="file" name="imagem" accept="image/*" id="imagem" placeholder="Envie uma imagem">
 
       <label for="imagem">Envie uma imagem do produto</label>
       <input type="file" name="imagem" accept="image/*" id="imagem" placeholder="Envie uma imagem" value="<?= $produto->getImagem() ?>">
+      
       <input type="hidden" name="id" value="<?= $produto->getId()?>">
       <input type="submit" name="editar" class="botao-cadastrar"  value="Editar produto"/>
+      
     </form>
 
   </section>

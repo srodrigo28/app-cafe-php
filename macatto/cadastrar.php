@@ -56,6 +56,8 @@ require_once "src/Repositorio/CondominioRepositorio.php";
             margin-top: 40px;
             margin-bottom: 10px;
             font-weight: bold;
+            color: #fff;
+            margin-bottom: 40px;
         }
     </style>
 <main>
@@ -83,7 +85,7 @@ require_once "src/Repositorio/CondominioRepositorio.php";
             
             <input type="file" name="imagem" accept="image/*" id="imagem" placeholder="Envie uma imagem">
 
-            <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar produto"/>
+            <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar"/>
         </form>
     
     </section>

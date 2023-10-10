@@ -20,6 +20,12 @@
     $produto = $produtoRepositorio->buscar($_GET['id']);
 }
 
+// var_dump($produto['0']);
+// exit();
+
+var_dump($produto->getNome());
+exit();
+
 
 ?>
 <!doctype html>
@@ -52,7 +58,7 @@
     <form method="post" enctype="multipart/form-data">
 
       <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" value="<?= $produto->getNome() ?>" required>
+      <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" value="<?= $produto->getNome() ?> " required>
 
       <div class="container-radio">
         <div>
@@ -73,6 +79,7 @@
 
       <label for="imagem">Envie uma imagem do produto</label>
       <input type="file" name="imagem" accept="image/*" id="imagem" placeholder="Envie uma imagem" value="<?= $produto->getImagem() ?>">
+      
       <input type="hidden" name="id" value="<?= $produto->getId()?>">
       <input type="submit" name="editar" class="botao-cadastrar"  value="Editar produto"/>
     </form>
